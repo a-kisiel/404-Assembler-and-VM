@@ -1,0 +1,454 @@
+Alex Kisiel
+ICSI 404
+
+$add:
+
+2 positives
+move 5 r1 (B1 05)
+move 3 r2 (B2 03)
+add r1 r2 r3 (11 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 5
+R2 == 3
+R3 == 8
+
+1 negative (yields negative sum)
+move 2 r1 (B1 02)
+move -3 r2 (B2 )
+add r1 r2 r3 (11 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2
+R2 == -3
+R3 == -1
+
+1 zero
+move 4 r1 (B1 04)
+move 0 r2 (B2 00)
+add r1 r2 r3 (11 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 0
+R3 == 4
+
+max:
+move 1 r1 (B1 01)
+move 127 r2 (B2 7F)
+add r1 r2 r3 (11 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 1
+R2 == 127
+R3 == -1
+
+min and negative second number (basically subtraction):
+move -128 r1 (B1 80)
+move -1 r2 (B1 80)
+add r1 r2 r3 (11 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == -128
+R2 == -1
+R3 == 127
+
+$and:
+move 2 r1 (B1 02)
+move 3 r2 (B2 03)
+and r1 r2 r3 (21 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2
+R2 == 3
+R3 == 2
+
+$divide:
+
+cleanly divisible (e.g. 6/2)
+move 6 r1 (B1 06)
+move 2 r2 (B2 02)
+divide r1 r2 r3 (31 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 6
+R2 == 2
+R3 == 3
+
+ignore remainder / second number is larger (e.g. 4/6)
+move 4 r1 (B1 04)
+move 6 r2 (B2 06)
+divide r1 r2 r3 (31 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 6
+R3 == 0
+
+1 negative
+move 8 r1 (B1 08)
+move -2 r2 (B2 FE)
+divide r1 r2 r3 (31 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 8
+R2 == -2
+R3 == -4
+
+2 negatives
+move -8 r1 (B1 F8)
+move -2 r2 (B2 FE)
+divide r1 r2 r3 (31 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == -8
+R2 == -2
+R3 == 4
+
+zero on top
+move 0 r1 (B1 00)
+move 2 r2 (B2 02)
+divide r1 r2 r3 (31 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 0
+R2 == 2
+R3 == 0
+
+zero on bottom
+move 2 r1 (B1 02)
+move 0 r2 (B2 00)
+divide r1 r2 r3 (31 23)
+interrupt 0 (C0 00)
+halt (00 00)
+?
+
+$multiply:
+
+2 positives
+move 12 r1 (B1 0C)
+move 5 r2 (B2 05)
+multiply r1 r2 r3 (41 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 12
+R2 == 5
+R3 == 60
+
+identity
+move 12 r1 (B1 0C)
+move 1 r2 (B1 01)
+multiply r1 r2 r3 (41 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 12
+R2 == 1
+R3 == 12
+
+1 negative
+move 12 r1 (B1 0C)
+move -2 r2 (B2 FE)
+multiply r1 r2 r3 (41 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 12
+R2 == -2
+R3 == -24
+
+2 negatives
+move -4 r1 (B1 FC)
+move -2 r2 (B2 FE)
+multiply r1 r2 r3 (41 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == -4
+R2 == -2
+R3 == 8
+
+1 zero
+move 0 r1 (B1 00)
+move 8 r2 (B2 08)
+multiply r1 r2 r3 (41 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 0
+R2 == 8
+R3 == 0
+
+max
+move 127 r1 (B1 7F)
+move 2 r2 (B1 02)
+multiply r1 r2 r3 (41 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 127
+R2 == 2
+R3 == -2
+
+$or:
+move 2 r1 (B1 02)
+move 4 r2 (B2 04)
+or r1 r2 r3 (61 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2
+R2 == 3
+R3 == 2
+
+$subtract:
+
+2 positives
+move 4 r1 (B1 04)
+move 2 r2 (B2 02)
+subtract r1 r2 r3 (51 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 2
+R3 == 2
+
+first number negative (negative result)
+move -4 r1 (B1 FC)
+move 2 r2 (B2 02)
+subtract r1 r2 r3 (51 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == -4
+R2 == 2
+R3 == -6
+
+second number negative
+move 4 r1 (B1 04)
+move -2 r2 (B2 02)
+subtract r1 r2 r3 (51 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == -2
+R3 == 6
+
+first number 0
+move 0 r1 (B1 00)
+move 2 r2 (B2 02)
+subtract r1 r2 r3 (51 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 0
+R2 == 2
+R3 == -2
+
+second number 0
+move 2 r1 (B1 02)
+move 0 r2 (B2 00)
+subtract r1 r2 r3 (51 23)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2
+R2 == 0
+R3 == 2
+
+$branchIfLess:
+move 5 r1 (B1 05)
+move 7 r2 (B2 07)
+branchIfLess r1 r2 6 (70 00 00 03)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 5
+R2 == 7
+
+branch not taken
+move 5 r1 (B1 05)
+move 2 r2 (B2 02)
+branchIfLess r1 r2 6 (70 00 00 03)
+interrupt 0 (C0 00)
+halt (00 00)
+halt (00 00)
+R1 == 5
+R2 == 2
+
+/*
+* The other branch instructions tests are extremely similar, but are
+* listed below for the sake of completion.
+*/
+
+$branchIfLessOrEqual:
+move 5 r1 (B1 05)
+move 7 r2 (B2 07)
+branchIfLessOrEqual r1 r2 6 (71 00 00 03)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 5
+R2 == 7
+
+registers equal
+move 5 r1 (B1 05)
+move 5 r2 (B2 05)
+branchIfLessOrEqual r1 r2 6 (71 00 00 03)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 5
+R2 == 5
+
+branch not taken
+move 5 r1 (B1 05)
+move 2 r2 (B2 02)
+branchIfLessOrEqual r1 r2 6 (71 00 00 03)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 5
+R2 == 2
+
+$branchIfEqual
+move 4 r1 (B1 04)
+move 4 r2 (B2 04)
+branchIfEqual r1 r2 6 (72 00 00 03)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R1 == 4
+
+branch not taken
+move 4 r1 (B1 04)
+move 2 r2 (B2 02)
+branchIfEqual r1 r2 6 (72 00 00 03)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 2
+
+$branchIfNotEqual
+move 4 r1 (B1 04)
+move 2 r2 (B2 02)
+branchIfNotEqual r1 r2 6 (73 00 00 03)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 2
+
+branch not taken
+move 4 r1 (B1 04)
+move 4 r2 (B2 02)
+branchIfNotEqual r1 r2 6 (73 00 00 03)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 4
+
+$branchIfGreater
+move 4 r1 (B1 04)
+move 2 r2 (B2 02)
+branchIfGreater r1 r2 6 (74 00 00 03)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 2
+
+branch not taken
+move 2 r1 (B1 02)
+move 4 r2 (B2 04)
+branchIfGreater r1 r2 6 (75 00 00 03)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2
+R2 == 4
+
+$branchIfGreaterOrEqual
+move 4 r1 (B1 04)
+move 2 r2 (B2 02)
+branchIfGreaterOrEqual r1 r2 6 (75 00 00 03)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 2
+
+move 2 r1 (B1 02)
+move 2 r2 (B2 02)
+branchIfGreaterOrEqual r1 r2 6 (75 00 00 03)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2
+R2 == 2
+
+branch not taken
+move 2 r1 (B1 02)
+move 4 r2 (B2 04)
+branchIfGreaterOrEqual r1 r2 6 (75 00 00 03)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2
+R2 == 4
+
+$call
+move 5 r1 (B1 05)
+call 8 (76 00 00 04)
+halt (00 00)
+interrupt 0 (C0 00)
+return (A0 00)
+halt (00 00) // Will halt the program even if the return statement doesn't work
+R1 == 5
+
+$jump
+move 5 r1 (B1 05)
+jump 8 (77 00 00 04)
+halt (00 00)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 = 5
+
+$load:
+move 2 r1 (B1 02)
+store r1 16 4 (91 A2)
+load r2 16 4 (81 A2)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2
+R2 == 2
+
+$store:
+move 2 r1 (B1 02)
+store r1 16 4 (91 A2)
+interrupt 1 (C0 00)
+halt (00 00)
+memory at address 20: 2
+
+$pop:
+move 4 r1 (B1 04)
+push r1 (A1 40)
+pop r2 (A2 80)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 4
+R2 == 4
+
+$push:
+move 4 r1 (B1 04)
+push r1 (A1 40)
+interrupt 0
+halt (00 00)
+
+$return:
+call 8 (76 00 00 04)
+interrupt 0 (C0 00)
+halt (00 00)
+move 6 r1 (B1 06)
+return (A0 00)
+R1 == 6
+
+$move:
+move 24 r1 (B1 18)
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 24
+
+$interrupt:
+interrupt 0 (C0 00)
+halt (00 00)
+R1 == 2

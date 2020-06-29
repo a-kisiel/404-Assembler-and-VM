@@ -1,0 +1,7 @@
+move 4 r1
+move 2 r2
+add r1 r2 r3
+branchIfLess r2 r1 3
+halt
+interrupt 0
+halt
