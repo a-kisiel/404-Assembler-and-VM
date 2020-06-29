@@ -2,7 +2,7 @@
 
 In a recent class I was asked to write an assembler and virtual machine in C for an assembly language designed for the assignment; while this language doesn't have any readily-accessible documentation available to non-students, it is effectively similar to many existing, in-use frameworks.
 
-In lieu of providing the documentation I have included a short text file delineating a few operations, as well as a longer test file of test cases for each instruction (intended to root out various bugs with each operation).
+In lieu of providing the documentation I have included a short text file delineating a few operations, as well as a longer test file of unit tests for each instruction (intended to root out various bugs within each operation).
 
 To translate the input into a usable bin file, simply pass the input file and the desired name of the output file (i.e. FILE_NAME.bin) respectively as command line arguments.
 
